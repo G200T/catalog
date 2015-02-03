@@ -1,0 +1,1530 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: dev1; Tablespace: 
+--
+
+CREATE TABLE auth_group (
+    id integer NOT NULL,
+    name character varying(80) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO dev1;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: dev1
+--
+
+CREATE SEQUENCE auth_group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO dev1;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dev1
+--
+
+ALTER SEQUENCE auth_group_id_seq OWNED BY auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: dev1; Tablespace: 
+--
+
+CREATE TABLE auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO dev1;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: dev1
+--
+
+CREATE SEQUENCE auth_group_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO dev1;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dev1
+--
+
+ALTER SEQUENCE auth_group_permissions_id_seq OWNED BY auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: dev1; Tablespace: 
+--
+
+CREATE TABLE auth_permission (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO dev1;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: dev1
+--
+
+CREATE SEQUENCE auth_permission_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO dev1;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dev1
+--
+
+ALTER SEQUENCE auth_permission_id_seq OWNED BY auth_permission.id;
+
+
+--
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: dev1; Tablespace: 
+--
+
+CREATE TABLE auth_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone NOT NULL,
+    is_superuser boolean NOT NULL,
+    username character varying(30) NOT NULL,
+    first_name character varying(30) NOT NULL,
+    last_name character varying(30) NOT NULL,
+    email character varying(75) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.auth_user OWNER TO dev1;
+
+--
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: dev1; Tablespace: 
+--
+
+CREATE TABLE auth_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_groups OWNER TO dev1;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: dev1
+--
+
+CREATE SEQUENCE auth_user_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_groups_id_seq OWNER TO dev1;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dev1
+--
+
+ALTER SEQUENCE auth_user_groups_id_seq OWNED BY auth_user_groups.id;
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: dev1
+--
+
+CREATE SEQUENCE auth_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_id_seq OWNER TO dev1;
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dev1
+--
+
+ALTER SEQUENCE auth_user_id_seq OWNED BY auth_user.id;
+
+
+--
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: dev1; Tablespace: 
+--
+
+CREATE TABLE auth_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_user_permissions OWNER TO dev1;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: dev1
+--
+
+CREATE SEQUENCE auth_user_user_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_user_permissions_id_seq OWNER TO dev1;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dev1
+--
+
+ALTER SEQUENCE auth_user_user_permissions_id_seq OWNED BY auth_user_user_permissions.id;
+
+
+--
+-- Name: ctlg_category; Type: TABLE; Schema: public; Owner: dev1; Tablespace: 
+--
+
+CREATE TABLE ctlg_category (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    sub_id integer,
+    slug character varying(50),
+    image character varying(100)
+);
+
+
+ALTER TABLE public.ctlg_category OWNER TO dev1;
+
+--
+-- Name: ctlg_category_id_seq; Type: SEQUENCE; Schema: public; Owner: dev1
+--
+
+CREATE SEQUENCE ctlg_category_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.ctlg_category_id_seq OWNER TO dev1;
+
+--
+-- Name: ctlg_category_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dev1
+--
+
+ALTER SEQUENCE ctlg_category_id_seq OWNED BY ctlg_category.id;
+
+
+--
+-- Name: ctlg_unit; Type: TABLE; Schema: public; Owner: dev1; Tablespace: 
+--
+
+CREATE TABLE ctlg_unit (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    image character varying(100),
+    sub_id integer NOT NULL,
+    slug character varying(50)
+);
+
+
+ALTER TABLE public.ctlg_unit OWNER TO dev1;
+
+--
+-- Name: ctlg_unit_id_seq; Type: SEQUENCE; Schema: public; Owner: dev1
+--
+
+CREATE SEQUENCE ctlg_unit_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.ctlg_unit_id_seq OWNER TO dev1;
+
+--
+-- Name: ctlg_unit_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dev1
+--
+
+ALTER SEQUENCE ctlg_unit_id_seq OWNED BY ctlg_unit.id;
+
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: dev1; Tablespace: 
+--
+
+CREATE TABLE django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id integer NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO dev1;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: dev1
+--
+
+CREATE SEQUENCE django_admin_log_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO dev1;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dev1
+--
+
+ALTER SEQUENCE django_admin_log_id_seq OWNED BY django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: dev1; Tablespace: 
+--
+
+CREATE TABLE django_content_type (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO dev1;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: dev1
+--
+
+CREATE SEQUENCE django_content_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO dev1;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dev1
+--
+
+ALTER SEQUENCE django_content_type_id_seq OWNED BY django_content_type.id;
+
+
+--
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: dev1; Tablespace: 
+--
+
+CREATE TABLE django_migrations (
+    id integer NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_migrations OWNER TO dev1;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: dev1
+--
+
+CREATE SEQUENCE django_migrations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_migrations_id_seq OWNER TO dev1;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dev1
+--
+
+ALTER SEQUENCE django_migrations_id_seq OWNED BY django_migrations.id;
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: dev1; Tablespace: 
+--
+
+CREATE TABLE django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO dev1;
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: dev1
+--
+
+ALTER TABLE ONLY auth_group ALTER COLUMN id SET DEFAULT nextval('auth_group_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: dev1
+--
+
+ALTER TABLE ONLY auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: dev1
+--
+
+ALTER TABLE ONLY auth_permission ALTER COLUMN id SET DEFAULT nextval('auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: dev1
+--
+
+ALTER TABLE ONLY auth_user ALTER COLUMN id SET DEFAULT nextval('auth_user_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: dev1
+--
+
+ALTER TABLE ONLY auth_user_groups ALTER COLUMN id SET DEFAULT nextval('auth_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: dev1
+--
+
+ALTER TABLE ONLY auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('auth_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: dev1
+--
+
+ALTER TABLE ONLY ctlg_category ALTER COLUMN id SET DEFAULT nextval('ctlg_category_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: dev1
+--
+
+ALTER TABLE ONLY ctlg_unit ALTER COLUMN id SET DEFAULT nextval('ctlg_unit_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: dev1
+--
+
+ALTER TABLE ONLY django_admin_log ALTER COLUMN id SET DEFAULT nextval('django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: dev1
+--
+
+ALTER TABLE ONLY django_content_type ALTER COLUMN id SET DEFAULT nextval('django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: dev1
+--
+
+ALTER TABLE ONLY django_migrations ALTER COLUMN id SET DEFAULT nextval('django_migrations_id_seq'::regclass);
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: dev1
+--
+
+COPY auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dev1
+--
+
+SELECT pg_catalog.setval('auth_group_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: dev1
+--
+
+COPY auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dev1
+--
+
+SELECT pg_catalog.setval('auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: dev1
+--
+
+COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add log entry	1	add_logentry
+2	Can change log entry	1	change_logentry
+3	Can delete log entry	1	delete_logentry
+4	Can add permission	2	add_permission
+5	Can change permission	2	change_permission
+6	Can delete permission	2	delete_permission
+7	Can add group	3	add_group
+8	Can change group	3	change_group
+9	Can delete group	3	delete_group
+10	Can add user	4	add_user
+11	Can change user	4	change_user
+12	Can delete user	4	delete_user
+13	Can add content type	5	add_contenttype
+14	Can change content type	5	change_contenttype
+15	Can delete content type	5	delete_contenttype
+16	Can add session	6	add_session
+17	Can change session	6	change_session
+18	Can delete session	6	delete_session
+19	Can add unit	7	add_unit
+20	Can change unit	7	change_unit
+21	Can delete unit	7	delete_unit
+22	Can add category	8	add_category
+23	Can change category	8	change_category
+24	Can delete category	8	delete_category
+\.
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dev1
+--
+
+SELECT pg_catalog.setval('auth_permission_id_seq', 24, true);
+
+
+--
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: dev1
+--
+
+COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+1	pbkdf2_sha256$15000$aZ5XbxwfrtCn$MPwXETbOTyoareQpiEdbhhLNmXhSJB4tFQvLtVQTzcc=	2015-01-26 09:47:47.043387+06	t	dev1				t	t	2015-01-21 13:43:53.490013+06
+\.
+
+
+--
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: dev1
+--
+
+COPY auth_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dev1
+--
+
+SELECT pg_catalog.setval('auth_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dev1
+--
+
+SELECT pg_catalog.setval('auth_user_id_seq', 1, true);
+
+
+--
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: dev1
+--
+
+COPY auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dev1
+--
+
+SELECT pg_catalog.setval('auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: ctlg_category; Type: TABLE DATA; Schema: public; Owner: dev1
+--
+
+COPY ctlg_category (id, name, sub_id, slug, image) FROM stdin;
+104	TV	\N	tv_104	photos/tele_AUH1WWq.jpg
+105	LG	104	lg_105	photos/LGimage_Wifhf6n.jpg
+106	Sony	104	sony_106	photos/sony_1CjalDQ.jpg
+107	Телефоны	\N	telefonyi_107	photos/телефон.jpg
+109	Обычные	107	obyichnyie_109	photos/обычный.jpg
+111	Samsung	108	samsung_111	photos/samsung1.jpg
+110	Apple	108	apple_110	photos/apple_logo.jpg
+112	Alcatel	109	alcatel_112	photos/alcatel.png
+108	Смартфоны	107	smartfonyi_108	photos/смартфон.jpg
+113	Холодильник	\N	holodilnik_113	photos/холодильник_rWWfF9X.jpg
+114	smag	113	smag_114	photos/ыьфп.jpg
+\.
+
+
+--
+-- Name: ctlg_category_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dev1
+--
+
+SELECT pg_catalog.setval('ctlg_category_id_seq', 116, true);
+
+
+--
+-- Data for Name: ctlg_unit; Type: TABLE DATA; Schema: public; Owner: dev1
+--
+
+COPY ctlg_unit (id, name, image, sub_id, slug) FROM stdin;
+109	Iphone4	photos/iphone4_nRWwryN.jpg	110	iphone4_109
+110	Iphone5		110	iphone5_110
+111	Alcatel_3310	photos/Alcatel_OT_300_front.jpg	112	alcatel_3310_111
+112	Alcatel_2290		112	alcatel_2290_112
+113	texet22		109	texet22_113
+114	SonyOld	photos/sonytele_6Yiod43.JPG	106	sonyold_114
+115	Bravia		106	bravia_115
+116	LG_14	photos/lg_eUB2BBz.jpg	105	lg_14_116
+117	LG_15		105	lg_15_117
+118	Samsung_Galaxy		107	samsung_galaxy_118
+119	Nexus5		108	nexus5_119
+120	Телевизор		104	televizor_120
+121	Холодильник		113	holodilnik_121
+122	Smag05		114	smag05_122
+\.
+
+
+--
+-- Name: ctlg_unit_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dev1
+--
+
+SELECT pg_catalog.setval('ctlg_unit_id_seq', 124, true);
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: dev1
+--
+
+COPY django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+1	2015-01-21 13:48:45.90936+06	1	Category object	1		8	1
+2	2015-01-21 13:56:49.848363+06	1	Category object	3		8	1
+3	2015-01-21 13:57:04.760409+06	2	Category object	1		8	1
+4	2015-01-21 13:57:18.649062+06	2	Category object	3		8	1
+5	2015-01-21 13:59:51.739909+06	3	Category object	1		8	1
+6	2015-01-21 14:02:03.608332+06	3	Category object	3		8	1
+7	2015-01-21 14:02:08.842942+06	4	Category object	1		8	1
+8	2015-01-21 14:04:17.767174+06	5	Category object	1		8	1
+9	2015-01-21 14:29:05.748007+06	1	Unit object	1		7	1
+10	2015-01-21 14:35:51.497373+06	1	Unit object	3		7	1
+11	2015-01-21 14:36:02.634263+06	2	Unit object	1		7	1
+12	2015-01-21 14:36:43.2525+06	2	Unit object	3		7	1
+13	2015-01-21 14:36:52.730243+06	5	5: test	3		8	1
+14	2015-01-21 14:36:52.737059+06	4	4: Phones	3		8	1
+15	2015-01-21 14:37:35.286202+06	6	6: Phones	1		8	1
+16	2015-01-21 14:38:13.251846+06	7	7: CPU	1		8	1
+17	2015-01-21 14:38:30.433784+06	3	Unit object	1		7	1
+18	2015-01-21 14:46:01.240889+06	3	Unit object	3		7	1
+19	2015-01-21 14:55:52.227237+06	4	Unit object	1		7	1
+20	2015-01-22 11:11:04.649763+06	7	7: CPU	3		8	1
+21	2015-01-22 11:11:04.658416+06	6	6: Phones	3		8	1
+22	2015-01-22 11:29:49.688947+06	9	9: fgjgfj	1		8	1
+23	2015-01-22 11:34:29.188186+06	9	9: fgjgfj	3		8	1
+24	2015-01-22 11:34:29.19462+06	8	8: sdfgsdfg	3		8	1
+25	2015-01-22 11:34:41.293246+06	10	10: TV	1		8	1
+26	2015-01-22 11:35:09.556925+06	11	11: telephones	1		8	1
+27	2015-01-22 11:35:19.128246+06	11	11: Telephones	2	Changed name.	8	1
+28	2015-01-22 11:35:40.945837+06	12	12: LED	1		8	1
+29	2015-01-22 11:36:14.496933+06	13	13: LCD	1		8	1
+30	2015-01-22 11:38:22.005522+06	5	Unit object	1		7	1
+31	2015-01-22 11:38:39.308862+06	6	Unit object	1		7	1
+32	2015-01-22 11:38:48.781841+06	7	Unit object	1		7	1
+33	2015-01-22 11:39:02.464792+06	8	Unit object	1		7	1
+34	2015-01-22 12:35:09.995006+06	14	14: LED	1		8	1
+35	2015-01-22 12:35:46.311591+06	14	14: LED	3		8	1
+36	2015-01-22 13:02:05.698814+06	15	15: 17	1		8	1
+37	2015-01-22 13:02:14.194498+06	16	16: 15	1		8	1
+38	2015-01-22 13:02:43.112555+06	9	Unit object	1		7	1
+39	2015-01-23 13:51:36.346067+06	9	9: Sony	3		7	1
+40	2015-01-23 13:51:36.35528+06	8	8: Sony	3		7	1
+41	2015-01-23 13:51:36.359659+06	7	7: LG	3		7	1
+42	2015-01-23 13:51:36.363293+06	6	6: LG	3		7	1
+43	2015-01-23 13:51:36.367077+06	5	5: Samsung	3		7	1
+44	2015-01-23 13:51:43.725138+06	16	16: 15	3		8	1
+45	2015-01-23 13:51:43.732519+06	15	15: 17	3		8	1
+46	2015-01-23 13:51:43.736142+06	13	13: LCD	3		8	1
+47	2015-01-23 13:51:43.739575+06	12	12: LED	3		8	1
+48	2015-01-23 13:51:43.742947+06	11	11: Telephones	3		8	1
+49	2015-01-23 13:51:43.746335+06	10	10: TV	3		8	1
+50	2015-01-23 13:51:53.178359+06	17	17: TV	1		8	1
+51	2015-01-23 13:52:01.392933+06	18	18: LED	1		8	1
+52	2015-01-23 13:52:20.106247+06	19	19: LCD	1		8	1
+53	2015-01-23 13:52:36.599413+06	20	20: Sony	1		8	1
+54	2015-01-23 13:52:52.082074+06	10	10: Bravia	1		7	1
+55	2015-01-23 14:02:34.278446+06	11	11: Test	1		7	1
+56	2015-01-26 08:25:49.051406+06	11	11: Test	3		7	1
+57	2015-01-26 08:25:49.062286+06	10	10: Bravia	3		7	1
+58	2015-01-26 08:26:04.038989+06	12	12: Bravia	1		7	1
+59	2015-01-26 08:31:10.688688+06	20	20: Sony	3		8	1
+60	2015-01-26 08:31:10.695659+06	19	19: LCD	3		8	1
+61	2015-01-26 08:31:10.699764+06	18	18: LED	3		8	1
+62	2015-01-26 08:31:10.704969+06	17	17: TV	3		8	1
+63	2015-01-26 08:31:20.479554+06	22	22: TV	1		8	1
+64	2015-01-26 08:31:36.570023+06	23	23: LED	1		8	1
+65	2015-01-26 08:31:46.785879+06	24	24: Sony	1		8	1
+66	2015-01-26 08:31:57.285939+06	13	13: Bravia	1		7	1
+67	2015-01-26 08:40:28.370197+06	14	14: test	1		7	1
+68	2015-01-26 11:43:11.908748+06	25	25: LCD	1		8	1
+69	2015-01-26 11:43:26.634507+06	26	26: LG	1		8	1
+70	2015-01-26 11:45:03.883371+06	27	27: telephones	1		8	1
+71	2015-01-26 13:19:49.528224+06	14	14: test	2	No fields changed.	7	1
+72	2015-01-26 13:19:54.154977+06	13	13: Bravia	2	Changed image.	7	1
+73	2015-01-26 13:27:52.744769+06	15	15: 123	1		7	1
+74	2015-01-26 14:49:17.164205+06	27	27: telephones	3		8	1
+75	2015-01-26 14:49:17.172351+06	26	26: LG	3		8	1
+76	2015-01-26 14:49:17.176012+06	25	25: LCD	3		8	1
+77	2015-01-26 14:49:17.179668+06	24	24: Sony	3		8	1
+78	2015-01-26 14:49:17.183408+06	23	23: LED	3		8	1
+79	2015-01-26 14:49:17.186976+06	22	22: TV	3		8	1
+80	2015-01-26 14:49:23.661357+06	28	28: TV	1		8	1
+81	2015-01-26 14:49:41.49663+06	29	29: LED	1		8	1
+82	2015-01-26 14:50:05.437835+06	30	30: Sony	1		8	1
+83	2015-01-26 14:52:24.502911+06	30	30: Sony	3		8	1
+84	2015-01-26 14:52:24.510102+06	29	29: LED	3		8	1
+85	2015-01-26 14:52:24.51396+06	28	28: TV	3		8	1
+86	2015-01-26 14:52:29.418429+06	31	31: TV	1		8	1
+87	2015-01-26 14:52:36.318567+06	32	32: LED	1		8	1
+88	2015-01-26 14:52:45.450241+06	33	33: Sony	1		8	1
+89	2015-01-26 14:53:37.723706+06	34	34: LCD	1		8	1
+90	2015-01-26 14:57:50.073489+06	34	34: LCD	3		8	1
+91	2015-01-26 14:57:50.08183+06	33	33: Sony	3		8	1
+92	2015-01-26 14:57:50.085972+06	32	32: LED	3		8	1
+93	2015-01-26 14:57:50.089742+06	31	31: TV	3		8	1
+94	2015-01-26 14:57:58.62553+06	35	35: TV	1		8	1
+95	2015-01-26 14:58:24.858102+06	36	36: LED	1		8	1
+96	2015-01-26 14:58:33.541482+06	37	37: Sony	1		8	1
+97	2015-01-26 15:00:53.369293+06	37	37: Sony	3		8	1
+98	2015-01-26 15:00:53.37716+06	36	36: LED	3		8	1
+99	2015-01-26 15:00:53.380815+06	35	35: TV	3		8	1
+100	2015-01-26 15:00:59.540744+06	38	38: TV	1		8	1
+101	2015-01-26 15:01:06.059404+06	39	39: LED	1		8	1
+102	2015-01-26 15:04:10.726941+06	39	39: LED	3		8	1
+103	2015-01-26 15:04:10.738828+06	38	38: TV	3		8	1
+104	2015-01-26 15:04:15.332499+06	40	40: TV	1		8	1
+105	2015-01-26 15:04:21.392653+06	41	41: LED	1		8	1
+106	2015-01-26 15:13:14.848262+06	42	42: Sony	1		8	1
+107	2015-01-26 15:14:18.700642+06	42	42: Sony	3		8	1
+108	2015-01-26 15:14:18.704412+06	41	41: LED	3		8	1
+109	2015-01-26 15:14:18.708257+06	40	40: TV	3		8	1
+110	2015-01-26 15:14:24.870748+06	43	43: TV	1		8	1
+111	2015-01-26 15:14:33.248392+06	44	44: LED	1		8	1
+112	2015-01-26 15:14:42.401658+06	45	45: Sony	1		8	1
+113	2015-01-26 15:23:01.698443+06	16	16: Bravia	1		7	1
+114	2015-01-26 15:23:23.094882+06	17	17: bravia2	1		7	1
+115	2015-01-26 15:24:40.293332+06	18	18: test1	1		7	1
+116	2015-01-26 15:24:52.433406+06	19	19: test2	1		7	1
+117	2015-01-26 17:02:15.742982+06	20	20: test14	1		7	1
+118	2015-01-27 09:24:32.262367+06	20	20: test14	3		7	1
+119	2015-01-27 09:24:32.272373+06	19	19: test2	3		7	1
+120	2015-01-27 09:24:32.275728+06	18	18: test1	3		7	1
+121	2015-01-27 09:24:32.279078+06	17	17: bravia2	3		7	1
+122	2015-01-27 09:24:32.282398+06	16	16: Bravia	3		7	1
+123	2015-01-27 09:24:39.626008+06	45	45: Sony	3		8	1
+124	2015-01-27 09:24:39.634717+06	44	44: LED	3		8	1
+125	2015-01-27 09:24:39.638734+06	43	43: TV	3		8	1
+126	2015-01-27 09:24:49.700973+06	46	46: TV	1		8	1
+127	2015-01-27 09:25:00.043159+06	47	47: Telephones	1		8	1
+128	2015-01-27 09:25:08.073654+06	48	48: LED	1		8	1
+129	2015-01-27 09:25:24.849541+06	49	49: LCD	1		8	1
+130	2015-01-27 09:25:58.722003+06	50	50: Smartphone	1		8	1
+131	2015-01-27 09:26:23.414638+06	51	51: Iphone	1		8	1
+132	2015-01-27 09:26:34.96299+06	51	51: Apple	2	Changed name.	8	1
+133	2015-01-27 09:26:51.567876+06	52	52: Sony	1		8	1
+134	2015-01-27 09:27:28.226933+06	21	21: Iphone5	1		7	1
+135	2015-01-27 09:27:40.657195+06	22	22: Iphone4s	1		7	1
+136	2015-01-27 09:27:53.437747+06	23	23: Bravia	1		7	1
+137	2015-01-27 09:28:39.790025+06	24	24: LG_14	1		7	1
+138	2015-01-27 09:29:11.359692+06	25	25: samsung	1		7	1
+139	2015-01-27 09:29:50.208422+06	23	23: Bravia	2	Changed image.	7	1
+140	2015-01-27 10:33:11.030234+06	26	26: testImage	1		7	1
+141	2015-01-27 11:50:36.618708+06	26	26: testImage	3		7	1
+142	2015-01-27 11:50:50.666061+06	27	27: test14	1		7	1
+143	2015-01-27 12:49:35.647948+06	53	53: Холодильник	1		8	1
+144	2015-01-27 12:54:18.835975+06	53	53: Холодильник	2	Changed sub.	8	1
+145	2015-01-27 13:04:36.98126+06	27	27: test14	3		7	1
+146	2015-01-27 13:04:36.988776+06	25	25: samsung	3		7	1
+147	2015-01-27 13:04:36.9921+06	24	24: LG_14	3		7	1
+148	2015-01-27 13:04:36.995421+06	23	23: Bravia	3		7	1
+149	2015-01-27 13:04:36.998751+06	22	22: Iphone4s	3		7	1
+150	2015-01-27 13:04:37.002114+06	21	21: Iphone5	3		7	1
+151	2015-01-27 13:06:29.543356+06	28	28: Iphone4s	1		7	1
+152	2015-01-27 13:08:21.293389+06	28	28: Iphone4s	3		7	1
+153	2015-01-27 13:08:37.760109+06	29	29: Iphone4s	1		7	1
+154	2015-01-27 13:11:05.794461+06	29	29: Iphone4s	2	No fields changed.	7	1
+155	2015-01-27 13:11:25.495364+06	30	30: Bravia	1		7	1
+156	2015-01-27 13:20:37.838645+06	29	29: Iphone4s	2	No fields changed.	7	1
+157	2015-01-27 13:49:12.359549+06	30	30: Bravia	2	Changed image.	7	1
+158	2015-01-27 13:50:57.156115+06	29	29: Iphone4s	2	Changed image.	7	1
+159	2015-01-27 13:54:53.520789+06	29	29: Iphone4s	2	Changed image.	7	1
+160	2015-01-27 13:55:16.035564+06	29	29: Iphone4s	2	No fields changed.	7	1
+161	2015-01-27 13:55:25.143513+06	29	29: Iphone4s	2	Changed image.	7	1
+162	2015-01-27 14:09:59.357987+06	29	29: Iphone4s	3		7	1
+163	2015-01-27 14:14:22.978514+06	31	31: Iphone4s	1		7	1
+164	2015-01-27 15:09:40.690496+06	54	54: LG	1		8	1
+165	2015-01-27 15:10:12.417691+06	32	32: LG_14	1		7	1
+166	2015-01-28 12:20:23.802558+06	33	33: Xperia	1		7	1
+167	2015-01-28 12:21:01.117765+06	34	34: Nokia3310	1		7	1
+168	2015-01-28 13:32:06.500938+06	34	34: Nokia3310	3		7	1
+169	2015-01-28 13:32:06.508662+06	33	33: Xperia	3		7	1
+170	2015-01-28 13:32:06.512087+06	32	32: LG_14	3		7	1
+171	2015-01-28 13:32:06.515463+06	31	31: Iphone4s	3		7	1
+172	2015-01-28 13:32:06.518756+06	30	30: Bravia	3		7	1
+173	2015-01-28 14:17:30.388497+06	35	35: Iphone4s	1		7	1
+174	2015-01-28 14:22:13.412548+06	35	35: Iphone4s	3		7	1
+175	2015-01-28 14:22:22.197922+06	36	36: Iphone4s	1		7	1
+176	2015-01-28 14:23:08.686413+06	36	36: Iphone4s	3		7	1
+177	2015-01-28 14:23:31.795109+06	37	37: Iphone4s	1		7	1
+178	2015-01-28 14:24:43.84435+06	38	38: Bravia	1		7	1
+179	2015-01-28 14:25:42.00406+06	39	39: LG_14	1		7	1
+180	2015-01-28 14:26:01.913103+06	40	40: Nokia3310	1		7	1
+181	2015-01-28 14:27:07.654062+06	40	40: Nokia3310	3		7	1
+182	2015-01-28 14:27:07.662664+06	39	39: LG_14	3		7	1
+183	2015-01-28 14:27:07.66676+06	38	38: Bravia	3		7	1
+184	2015-01-28 14:27:07.670492+06	37	37: Iphone4s	3		7	1
+185	2015-01-28 14:27:21.072828+06	41	41: Bravia	1		7	1
+186	2015-01-28 14:27:30.583095+06	42	42: Iphone4s	1		7	1
+187	2015-01-28 14:27:46.585404+06	43	43: Iphone5	1		7	1
+188	2015-01-28 14:27:58.711554+06	44	44: LG_14	1		7	1
+189	2015-01-28 14:28:41.735063+06	45	45: Sony_1631	1		7	1
+190	2015-01-28 16:30:44.69858+06	48	48: 123123	1		7	1
+191	2015-01-28 16:31:56.294275+06	49	49: test	1		7	1
+192	2015-01-28 16:32:16.783642+06	49	49: test	3		7	1
+193	2015-01-28 17:07:17.349644+06	48	48: 123123	3		7	1
+194	2015-01-28 17:07:17.356747+06	45	45: Sony_1631	3		7	1
+195	2015-01-28 17:07:17.36107+06	44	44: LG_14	3		7	1
+196	2015-01-28 17:07:17.364406+06	43	43: Iphone5	3		7	1
+197	2015-01-28 17:07:17.368077+06	42	42: Iphone4s	3		7	1
+198	2015-01-28 17:07:17.371647+06	41	41: Bravia	3		7	1
+199	2015-01-28 17:07:56.13423+06	50	50: Iphone4s	1		7	1
+200	2015-01-28 17:08:39.103614+06	50	50: Iphone4s	3		7	1
+201	2015-01-28 17:09:47.256985+06	51	51: Iphone4s	1		7	1
+202	2015-01-28 17:36:31.961166+06	52	52: Bravia	1		7	1
+203	2015-01-28 17:51:22.525144+06	52	52: Bravia	3		7	1
+204	2015-01-28 17:51:22.531884+06	51	51: Iphone4s	3		7	1
+205	2015-01-28 17:51:31.965163+06	53	53: Bravia	1		7	1
+206	2015-01-28 17:51:42.895561+06	54	54: Iphone4s	1		7	1
+207	2015-01-29 09:27:18.341361+06	55	55: Siemens a52	1		7	1
+208	2015-01-29 09:28:48.405575+06	55	55: Siemens a52	3		7	1
+209	2015-01-29 09:29:54.584762+06	56	56: 123	1		7	1
+210	2015-01-29 09:35:55.895454+06	57	57: Samsung Galaxy	1		7	1
+211	2015-01-29 09:41:22.61594+06	57	57: Samsung Galaxy	3		7	1
+212	2015-01-29 09:42:02.859426+06	58	58: test1	1		7	1
+213	2015-01-29 09:42:42.714986+06	59	59: Galaxy	1		7	1
+214	2015-01-29 09:43:50.335275+06	60	60: Sibir	1		7	1
+215	2015-01-29 09:44:39.346747+06	61	61: test2	1		7	1
+216	2015-01-29 09:45:33.195042+06	62	62: Bravia	1		7	1
+217	2015-01-29 09:46:24.609479+06	63	63: test3	1		7	1
+218	2015-01-29 09:46:48.39103+06	64	64: test4	1		7	1
+219	2015-01-29 09:47:54.345673+06	65	65: Iphone5	1		7	1
+220	2015-01-29 09:48:34.451599+06	66	66: Alcatel	1		7	1
+221	2015-01-29 09:49:51.209793+06	67	67: Smack	1		7	1
+222	2015-01-29 10:05:46.193158+06	66	66: Alcatel	3		7	1
+223	2015-01-29 10:06:08.638388+06	67	67: Smack	2	No fields changed.	7	1
+224	2015-01-29 10:06:14.298446+06	67	67: Smack	3		7	1
+225	2015-01-29 10:07:04.054942+06	68	68: Smack	1		7	1
+226	2015-01-29 10:08:08.963415+06	69	69: Alcatel	1		7	1
+227	2015-01-29 10:21:10.908556+06	70	70: test4	1		7	1
+228	2015-01-29 10:21:27.064054+06	71	71: test5	1		7	1
+229	2015-01-29 10:22:07.050525+06	72	72: test6	1		7	1
+230	2015-01-29 10:22:24.755735+06	73	73: test7	1		7	1
+231	2015-01-29 10:22:38.340539+06	74	74: test8	1		7	1
+232	2015-01-29 10:22:56.488442+06	75	75: test9	1		7	1
+233	2015-01-29 10:23:29.836287+06	76	76: 12312321	1		7	1
+234	2015-01-29 12:15:37.307955+06	77	77: Бирюса	1		7	1
+235	2015-01-29 13:32:34.456524+06	77	77: Бирюса	3		7	1
+236	2015-01-29 13:32:40.14668+06	53	53: Холодильник	3		8	1
+237	2015-01-29 13:41:48.013836+06	55	55: Холодильник	1		8	1
+238	2015-01-29 13:42:25.691338+06	78	78: Бирюса	1		7	1
+239	2015-01-29 13:44:32.246675+06	79	79: LG_14	1		7	1
+240	2015-01-29 15:46:21.088046+06	80	80: Ipad	1		7	1
+241	2015-01-29 15:48:48.878862+06	56	56: Микроволновки	1		8	1
+242	2015-01-29 15:55:28.575695+06	56	56: Микроволновки	3		8	1
+243	2015-01-29 15:55:28.58397+06	55	55: Холодильник	3		8	1
+244	2015-01-29 15:55:28.587553+06	54	54: LG	3		8	1
+245	2015-01-29 15:55:28.591043+06	52	52: Sony	3		8	1
+246	2015-01-29 15:55:28.594623+06	51	51: Apple	3		8	1
+247	2015-01-29 15:55:28.598191+06	50	50: Smartphone	3		8	1
+248	2015-01-29 15:55:28.601602+06	49	49: LCD	3		8	1
+249	2015-01-29 15:55:28.605054+06	48	48: LED	3		8	1
+250	2015-01-29 15:55:28.608448+06	47	47: Telephones	3		8	1
+251	2015-01-29 15:55:28.611905+06	46	46: TV	3		8	1
+252	2015-01-29 16:12:45.928308+06	57	57: Телевизоры	1		8	1
+253	2015-01-29 16:13:15.486792+06	58	58: Телефоны	1		8	1
+254	2015-01-29 16:15:17.921089+06	81	81: LG	1		7	1
+255	2015-01-29 16:19:58.521633+06	81	81: LG	3		7	1
+256	2015-01-29 16:20:19.949443+06	91	91: LG	1		7	1
+257	2015-01-29 16:20:33.473128+06	92	92: SONY	1		7	1
+258	2015-01-29 16:21:39.615311+06	59	59: TV	1		8	1
+259	2015-01-29 16:21:53.622838+06	60	60: вапвапвапва	1		8	1
+260	2015-01-29 16:22:16.922917+06	60	60: вапвапвапва	3		8	1
+261	2015-01-29 16:22:16.926976+06	59	59: TV	3		8	1
+262	2015-01-29 16:26:24.472245+06	92	92: SONY	3		7	1
+263	2015-01-29 16:26:24.480316+06	91	91: LG	3		7	1
+264	2015-01-29 16:26:36.659482+06	58	58: Телефоны	3		8	1
+265	2015-01-29 16:26:36.667824+06	57	57: Телевизоры	3		8	1
+266	2015-01-29 16:52:02.686844+06	73	73: TV	1		8	1
+267	2015-01-29 16:52:43.551052+06	93	93: LG	1		7	1
+268	2015-01-29 16:52:51.959784+06	94	94: SONY	1		7	1
+269	2015-01-30 09:23:53.806303+06	75	75: Телефоны	1		8	1
+270	2015-01-30 09:24:12.870312+06	95	95: Iphone4s	1		7	1
+271	2015-01-30 09:30:05.572064+06	96	96: Alcatel	1		7	1
+272	2015-01-30 10:50:52.899338+06	75	75: Телефоны	3		8	1
+273	2015-01-30 10:50:52.908336+06	73	73: TV	3		8	1
+274	2015-01-30 10:53:46.432351+06	76	76: Телевизоры	1		8	1
+275	2015-01-30 10:54:17.003222+06	76	76: Телевизоры	3		8	1
+276	2015-01-30 10:54:25.527799+06	77	77: Телевизоры	1		8	1
+277	2015-01-30 10:55:58.416887+06	77	77: Телевизоры	3		8	1
+278	2015-01-30 10:56:13.231704+06	78	78: TELE	1		8	1
+279	2015-01-30 10:57:47.714017+06	78	78: TELE	3		8	1
+280	2015-01-30 11:02:29.906083+06	81	81: TELE	1		8	1
+281	2015-01-30 11:02:48.617678+06	82	82: telephone	1		8	1
+282	2015-01-30 11:03:10.691745+06	83	83: Холодильник	1		8	1
+283	2015-01-30 11:04:07.982073+06	83	83: Холодильник	3		8	1
+284	2015-01-30 11:04:07.987442+06	82	82: telephone	3		8	1
+285	2015-01-30 11:04:07.992313+06	81	81: TELE	3		8	1
+286	2015-01-30 11:04:22.25467+06	84	84: Холодильник	1		8	1
+287	2015-01-30 11:05:36.769084+06	84	84: Холодильник	3		8	1
+288	2015-01-30 11:05:50.182043+06	85	85: Холодильник	1		8	1
+289	2015-01-30 11:06:35.034364+06	86	86: ТВ	1		8	1
+290	2015-01-30 11:09:22.563248+06	87	87: LG	1		8	1
+291	2015-01-30 11:10:28.760572+06	87	87: LG	2	Changed image.	8	1
+292	2015-01-30 11:10:54.692814+06	88	88: Sony	1		8	1
+293	2015-01-30 11:11:45.176711+06	98	98: OldSony	1		7	1
+294	2015-01-30 11:12:03.207204+06	99	99: NewSony	1		7	1
+295	2015-01-30 11:13:02.84506+06	100	100: Телевизор	1		7	1
+296	2015-01-30 11:13:48.794313+06	101	101: LG14	1		7	1
+297	2015-01-30 11:14:07.289212+06	102	102: LG15	1		7	1
+298	2015-01-30 12:25:42.109382+06	89	89: Плазменный	1		8	1
+299	2015-01-30 13:37:09.370192+06	90	90: однокамерный	1		8	1
+300	2015-01-30 13:38:25.125881+06	91	91: 17dm	1		8	1
+301	2015-01-30 15:34:37.79373+06	91	91: 17dm	3		8	1
+302	2015-01-30 15:34:37.80238+06	90	90: однокамерный	3		8	1
+303	2015-01-30 15:34:37.807413+06	89	89: Плазменный	3		8	1
+304	2015-01-30 15:34:37.811287+06	88	88: Sony	3		8	1
+305	2015-01-30 15:34:37.815236+06	87	87: LG	3		8	1
+306	2015-01-30 15:34:37.819293+06	86	86: ТВ	3		8	1
+307	2015-01-30 15:34:37.823317+06	85	85: Холодильник	3		8	1
+308	2015-01-30 15:34:50.991334+06	92	92: TV	1		8	1
+309	2015-01-30 15:35:12.305437+06	93	93: Телефоны	1		8	1
+310	2015-01-30 15:35:47.150853+06	94	94: Плазма	1		8	1
+311	2015-01-30 15:36:07.88845+06	95	95: ЖК	1		8	1
+312	2015-01-30 15:36:32.139099+06	96	96: Смартфоны	1		8	1
+313	2015-01-30 15:36:47.792168+06	97	97: Классика	1		8	1
+314	2015-01-30 15:37:05.586054+06	98	98: Apple	1		8	1
+315	2015-01-30 15:37:17.880584+06	99	99: Alcatel	1		8	1
+316	2015-02-02 13:47:54.481739+06	100	100: undertv	1		8	1
+317	2015-02-02 13:48:12.205321+06	100	100: undertv	3		8	1
+318	2015-02-02 14:50:02.000133+06	103	103: Iphone4s	1		7	1
+319	2015-02-02 15:01:15.902884+06	99	99: Alcatel	3		8	1
+320	2015-02-02 15:01:15.910606+06	98	98: Apple	3		8	1
+321	2015-02-02 15:01:15.913859+06	97	97: Классика	3		8	1
+322	2015-02-02 15:01:15.917493+06	96	96: Смартфоны	3		8	1
+323	2015-02-02 15:01:15.920705+06	95	95: ЖК	3		8	1
+324	2015-02-02 15:01:15.923816+06	94	94: Плазма	3		8	1
+325	2015-02-02 15:01:15.926948+06	93	93: Телефоны	3		8	1
+326	2015-02-02 15:01:15.930054+06	92	92: TV	3		8	1
+327	2015-02-02 15:01:36.466385+06	101	101: TV	1		8	1
+328	2015-02-02 15:01:47.923635+06	102	102: Sony	1		8	1
+329	2015-02-02 16:54:13.384698+06	103	103: LED	1		8	1
+330	2015-02-02 16:58:49.589174+06	104	104: Bravia	1		7	1
+331	2015-02-02 17:05:37.707983+06	105	105: телек	1		7	1
+332	2015-02-02 17:06:18.561787+06	103	103: LED	3		8	1
+333	2015-02-02 17:06:18.565658+06	102	102: Sony	3		8	1
+334	2015-02-02 17:06:18.569045+06	101	101: TV	3		8	1
+335	2015-02-02 17:08:01.535201+06	104	104: TV	1		8	1
+336	2015-02-02 17:08:22.197038+06	105	105: LG	1		8	1
+337	2015-02-02 17:08:32.918905+06	106	106: Sony	1		8	1
+338	2015-02-02 17:09:34.649737+06	106	106: BraVIA	1		7	1
+339	2015-02-02 17:09:54.662856+06	107	107: lg_14	1		7	1
+340	2015-02-02 17:14:42.540019+06	108	108: ТелевизорТурбо	1		7	1
+341	2015-02-02 17:33:05.136354+06	108	108: ТелевизорТурбо	3		7	1
+342	2015-02-02 17:33:05.144792+06	107	107: lg_14	3		7	1
+343	2015-02-02 17:33:05.148471+06	106	106: BraVIA	3		7	1
+344	2015-02-02 17:34:59.436931+06	107	107: Телефоны	1		8	1
+345	2015-02-02 17:35:46.94356+06	108	108: Смартфоны	1		8	1
+346	2015-02-02 17:36:19.700453+06	109	109: Обычные	1		8	1
+347	2015-02-02 17:37:32.461863+06	110	110: Apple	1		8	1
+348	2015-02-02 17:38:19.526961+06	111	111: Samsung	1		8	1
+349	2015-02-02 17:38:43.96145+06	110	110: Apple	2	Changed sub.	8	1
+350	2015-02-02 17:40:10.088874+06	112	112: Alcatel	1		8	1
+351	2015-02-02 17:40:39.687731+06	109	109: Iphone4	1		7	1
+352	2015-02-02 17:40:53.234219+06	110	110: Iphone5	1		7	1
+353	2015-02-02 17:43:37.47721+06	111	111: Alcatel 3310	1		7	1
+354	2015-02-02 17:43:58.215727+06	111	111: Alcatel_3310	2	Changed name.	7	1
+355	2015-02-02 17:44:40.42759+06	112	112: Alcatel_2290	1		7	1
+356	2015-02-02 17:45:33.699928+06	113	113: Nokia3310	1		7	1
+357	2015-02-02 17:45:51.283721+06	113	113: texet22	2	Changed name.	7	1
+358	2015-02-02 17:46:37.703308+06	114	114: SonyOld	1		7	1
+359	2015-02-02 17:46:55.443038+06	115	115: Bravia	1		7	1
+360	2015-02-02 17:47:08.800768+06	116	116: LG_14	1		7	1
+361	2015-02-02 17:47:26.640351+06	117	117: LG_15	1		7	1
+362	2015-02-02 17:48:01.815612+06	118	118: Samsung_Galaxy	1		7	1
+363	2015-02-02 17:48:24.338286+06	118	118: Samsung_Galaxy	2	Changed sub.	7	1
+364	2015-02-02 17:49:06.652322+06	119	119: Nexus5	1		7	1
+365	2015-02-02 17:49:37.734178+06	108	108: Смартфоны	2	Changed image.	8	1
+366	2015-02-02 17:51:39.603137+06	120	120: Телевизор	1		7	1
+367	2015-02-02 17:52:14.958899+06	113	113: Холодильник	1		8	1
+368	2015-02-02 17:54:36.511504+06	114	114: smag	1		8	1
+369	2015-02-02 17:54:55.329749+06	121	121: Холодильник	1		7	1
+370	2015-02-02 17:55:05.990002+06	122	122: Smag05	1		7	1
+371	2015-02-03 08:06:09.012715+06	115	115: один два	1		8	1
+372	2015-02-03 08:07:44.391037+06	115	115: один два	3		8	1
+373	2015-02-03 08:07:54.72145+06	123	123: один два	1		7	1
+374	2015-02-03 08:08:10.316878+06	123	123: один два	3		7	1
+375	2015-02-03 08:11:11.234586+06	116	116: one two	1		8	1
+376	2015-02-03 08:13:03.651193+06	116	116: one_two	2	Changed name.	8	1
+377	2015-02-03 08:13:17.14161+06	116	116: one-two	2	Changed name.	8	1
+378	2015-02-03 08:25:06.407244+06	116	116: one two	2	Changed name.	8	1
+379	2015-02-03 08:26:33.379208+06	124	124: один два	1		7	1
+380	2015-02-03 08:27:10.427502+06	124	124: один два	3		7	1
+381	2015-02-03 08:27:23.125106+06	116	116: one two	3		8	1
+\.
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dev1
+--
+
+SELECT pg_catalog.setval('django_admin_log_id_seq', 381, true);
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: dev1
+--
+
+COPY django_content_type (id, name, app_label, model) FROM stdin;
+1	log entry	admin	logentry
+2	permission	auth	permission
+3	group	auth	group
+4	user	auth	user
+5	content type	contenttypes	contenttype
+6	session	sessions	session
+7	unit	ctlg	unit
+8	category	ctlg	category
+\.
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dev1
+--
+
+SELECT pg_catalog.setval('django_content_type_id_seq', 8, true);
+
+
+--
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: dev1
+--
+
+COPY django_migrations (id, app, name, applied) FROM stdin;
+1	contenttypes	0001_initial	2015-01-21 13:43:25.518059+06
+2	auth	0001_initial	2015-01-21 13:43:25.698437+06
+3	admin	0001_initial	2015-01-21 13:43:25.755159+06
+4	sessions	0001_initial	2015-01-21 13:43:25.792247+06
+5	ctlg	0001_initial	2015-01-21 13:48:23.341469+06
+6	ctlg	0002_category_sub	2015-01-22 11:10:34.712622+06
+7	ctlg	0003_auto_20150122_0538	2015-01-22 11:38:14.934906+06
+8	ctlg	0004_auto_20150122_0636	2015-01-22 12:36:58.230396+06
+9	ctlg	0005_auto_20150122_0924	2015-01-22 15:24:03.284028+06
+10	ctlg	0006_auto_20150122_0933	2015-01-22 15:33:24.517881+06
+11	ctlg	0007_auto_20150122_0939	2015-01-22 15:39:50.722017+06
+12	ctlg	0008_auto_20150122_0943	2015-01-22 15:43:35.157612+06
+13	ctlg	0009_auto_20150123_0500	2015-01-23 11:03:57.130439+06
+14	ctlg	0010_auto_20150123_0510	2015-01-23 12:42:37.84434+06
+17	ctlg	0012_auto_20150123_0746	2015-01-23 13:49:06.506565+06
+18	ctlg	0011_auto_20150123_0730	2015-01-23 13:49:06.542434+06
+19	ctlg	0013_merge	2015-01-23 13:49:06.557224+06
+20	ctlg	0014_auto_20150123_0801	2015-01-23 14:01:47.932646+06
+21	ctlg	0015_auto_20150123_0803	2015-01-23 14:03:48.109908+06
+22	ctlg	0016_category_url	2015-01-26 14:57:31.340458+06
+23	ctlg	0017_auto_20150127_0704	2015-01-27 13:05:17.247121+06
+24	ctlg	0018_auto_20150128_0800	2015-01-28 14:00:24.798739+06
+25	ctlg	0019_auto_20150128_1031	2015-01-28 16:31:39.771443+06
+26	ctlg	0020_unit_url	2015-01-28 17:09:34.305645+06
+27	ctlg	0021_category_image	2015-01-29 16:11:54.886137+06
+28	ctlg	0022_auto_20150202_0730	2015-02-02 13:30:44.313706+06
+\.
+
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dev1
+--
+
+SELECT pg_catalog.setval('django_migrations_id_seq', 28, true);
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: dev1
+--
+
+COPY django_session (session_key, session_data, expire_date) FROM stdin;
+6u58jw3b2qpjlgi0vfag0pm82a0a6p1m	YTg2ZDI5NzA1YTQ1YTI5M2E3MmUwNjg5ZmVlODBlZDU4OTNmY2U2OTp7Il9hdXRoX3VzZXJfaGFzaCI6IjBjZDE5MmEwMGRjZjg4MzQ0MjU3MDgzNzIzYzcwYmRmYzYwZTMzNTEiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9	2015-02-04 13:44:28.37088+06
+11iyukyokysxmede7e5e7i0c690zh4n2	YTg2ZDI5NzA1YTQ1YTI5M2E3MmUwNjg5ZmVlODBlZDU4OTNmY2U2OTp7Il9hdXRoX3VzZXJfaGFzaCI6IjBjZDE5MmEwMGRjZjg4MzQ0MjU3MDgzNzIzYzcwYmRmYzYwZTMzNTEiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9	2015-02-09 09:47:47.047318+06
+\.
+
+
+--
+-- Name: auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: dev1; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions_group_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: dev1; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_key UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: dev1; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: dev1; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission_content_type_id_codename_key; Type: CONSTRAINT; Schema: public; Owner: dev1; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_key UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: dev1; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: dev1; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups_user_id_group_id_key; Type: CONSTRAINT; Schema: public; Owner: dev1; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_group_id_key UNIQUE (user_id, group_id);
+
+
+--
+-- Name: auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: dev1; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: dev1; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: dev1; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_permission_id_key UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: dev1; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+
+
+--
+-- Name: ctlg_category_pkey; Type: CONSTRAINT; Schema: public; Owner: dev1; Tablespace: 
+--
+
+ALTER TABLE ONLY ctlg_category
+    ADD CONSTRAINT ctlg_category_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ctlg_category_slug_key; Type: CONSTRAINT; Schema: public; Owner: dev1; Tablespace: 
+--
+
+ALTER TABLE ONLY ctlg_category
+    ADD CONSTRAINT ctlg_category_slug_key UNIQUE (slug);
+
+
+--
+-- Name: ctlg_unit_pkey; Type: CONSTRAINT; Schema: public; Owner: dev1; Tablespace: 
+--
+
+ALTER TABLE ONLY ctlg_unit
+    ADD CONSTRAINT ctlg_unit_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ctlg_unit_slug_key; Type: CONSTRAINT; Schema: public; Owner: dev1; Tablespace: 
+--
+
+ALTER TABLE ONLY ctlg_unit
+    ADD CONSTRAINT ctlg_unit_slug_key UNIQUE (slug);
+
+
+--
+-- Name: django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: dev1; Tablespace: 
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type_app_label_45f3b1d93ec8c61c_uniq; Type: CONSTRAINT; Schema: public; Owner: dev1; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_app_label_45f3b1d93ec8c61c_uniq UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: dev1; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: dev1; Tablespace: 
+--
+
+ALTER TABLE ONLY django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: dev1; Tablespace: 
+--
+
+ALTER TABLE ONLY django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: auth_group_name_253ae2a6331666e8_like; Type: INDEX; Schema: public; Owner: dev1; Tablespace: 
+--
+
+CREATE INDEX auth_group_name_253ae2a6331666e8_like ON auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_0e939a4f; Type: INDEX; Schema: public; Owner: dev1; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_0e939a4f ON auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_8373b171; Type: INDEX; Schema: public; Owner: dev1; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_8373b171 ON auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_417f1b1c; Type: INDEX; Schema: public; Owner: dev1; Tablespace: 
+--
+
+CREATE INDEX auth_permission_417f1b1c ON auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: auth_user_groups_0e939a4f; Type: INDEX; Schema: public; Owner: dev1; Tablespace: 
+--
+
+CREATE INDEX auth_user_groups_0e939a4f ON auth_user_groups USING btree (group_id);
+
+
+--
+-- Name: auth_user_groups_e8701ad4; Type: INDEX; Schema: public; Owner: dev1; Tablespace: 
+--
+
+CREATE INDEX auth_user_groups_e8701ad4 ON auth_user_groups USING btree (user_id);
+
+
+--
+-- Name: auth_user_user_permissions_8373b171; Type: INDEX; Schema: public; Owner: dev1; Tablespace: 
+--
+
+CREATE INDEX auth_user_user_permissions_8373b171 ON auth_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_user_user_permissions_e8701ad4; Type: INDEX; Schema: public; Owner: dev1; Tablespace: 
+--
+
+CREATE INDEX auth_user_user_permissions_e8701ad4 ON auth_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: auth_user_username_51b3b110094b8aae_like; Type: INDEX; Schema: public; Owner: dev1; Tablespace: 
+--
+
+CREATE INDEX auth_user_username_51b3b110094b8aae_like ON auth_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: ctlg_category_229aeae9; Type: INDEX; Schema: public; Owner: dev1; Tablespace: 
+--
+
+CREATE INDEX ctlg_category_229aeae9 ON ctlg_category USING btree (sub_id);
+
+
+--
+-- Name: ctlg_unit_229aeae9; Type: INDEX; Schema: public; Owner: dev1; Tablespace: 
+--
+
+CREATE INDEX ctlg_unit_229aeae9 ON ctlg_unit USING btree (sub_id);
+
+
+--
+-- Name: django_admin_log_417f1b1c; Type: INDEX; Schema: public; Owner: dev1; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_417f1b1c ON django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_e8701ad4; Type: INDEX; Schema: public; Owner: dev1; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_e8701ad4 ON django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_de54fa62; Type: INDEX; Schema: public; Owner: dev1; Tablespace: 
+--
+
+CREATE INDEX django_session_de54fa62 ON django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_461cfeaa630ca218_like; Type: INDEX; Schema: public; Owner: dev1; Tablespace: 
+--
+
+CREATE INDEX django_session_session_key_461cfeaa630ca218_like ON django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: auth_content_type_id_508cf46651277a81_fk_django_content_type_id; Type: FK CONSTRAINT; Schema: public; Owner: dev1
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_content_type_id_508cf46651277a81_fk_django_content_type_id FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissio_group_id_689710a9a73b7457_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: dev1
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissio_group_id_689710a9a73b7457_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permission_id_1f49ccbbdc69d2fc_fk_auth_permission_id; Type: FK CONSTRAINT; Schema: public; Owner: dev1
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permission_id_1f49ccbbdc69d2fc_fk_auth_permission_id FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user__permission_id_384b62483d7071f0_fk_auth_permission_id; Type: FK CONSTRAINT; Schema: public; Owner: dev1
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user__permission_id_384b62483d7071f0_fk_auth_permission_id FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups_group_id_33ac548dcf5f8e37_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: dev1
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_group_id_33ac548dcf5f8e37_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups_user_id_4b5ed4ffdb8fd9b0_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: dev1
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_4b5ed4ffdb8fd9b0_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permiss_user_id_7f0938558328534a_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: dev1
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permiss_user_id_7f0938558328534a_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: ctlg_category_sub_id_60cd0964ac486409_fk_ctlg_category_id; Type: FK CONSTRAINT; Schema: public; Owner: dev1
+--
+
+ALTER TABLE ONLY ctlg_category
+    ADD CONSTRAINT ctlg_category_sub_id_60cd0964ac486409_fk_ctlg_category_id FOREIGN KEY (sub_id) REFERENCES ctlg_category(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: ctlg_unit_sub_id_260e276cfb07043_fk_ctlg_category_id; Type: FK CONSTRAINT; Schema: public; Owner: dev1
+--
+
+ALTER TABLE ONLY ctlg_unit
+    ADD CONSTRAINT ctlg_unit_sub_id_260e276cfb07043_fk_ctlg_category_id FOREIGN KEY (sub_id) REFERENCES ctlg_category(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: djan_content_type_id_697914295151027a_fk_django_content_type_id; Type: FK CONSTRAINT; Schema: public; Owner: dev1
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT djan_content_type_id_697914295151027a_fk_django_content_type_id FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log_user_id_52fdd58701c5f563_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: dev1
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_52fdd58701c5f563_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

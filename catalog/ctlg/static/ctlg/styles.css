@@ -1,0 +1,150 @@
+body {
+	margin: 0;
+	background-color: #444444;
+	border-top: 5px solid #79fdff; 
+	color: #f8f8f8;
+	font-family: "Arial";
+	max-width: 960px;
+	margin:auto;
+}
+
+header {
+	max-width: 960px;
+	height: 150px;
+	margin:auto;
+}
+
+h1 {
+	color: #79fdff;
+	padding: 10px 0;
+	font-size: 40px;
+	margin: 0;
+}
+
+h2 {
+	color: #79fdff;
+	padding: 5px 0;
+	font-size: 30px;
+	margin: 0;
+}
+
+header h1 {
+	text-align: center;
+}
+
+header h3 {
+	margin: 0;
+}
+
+input[type="text"] {
+	background-color: #f3f3f3;
+	border: 1px solid #e7e7e7;
+	height: 35px;
+	width: 655px;
+	color: #b2b2b2;
+	padding: 0 10px;
+	vertical-align: top;
+	font-size: 20px;
+}
+
+button {
+	color: #fff;
+	background-color: #79fdff;
+	border: none;
+	height: 35px;
+}
+
+form[name="search"] {
+    float: right;
+    padding: 20px 0;
+    margin: 0;
+}
+
+aside {
+	float: left;
+	width: 250px;
+}
+
+section {
+	margin-left: 280px;
+	padding-bottom: 50px;
+	height: 500px;
+}
+
+nav li {
+	list-style-position: inside;
+    font-size: 14px;
+    padding: 10px;
+	font-weight: 300;
+	list-style-type: square;
+	border-top: 1px solid #e7e7e7;
+}
+
+nav a{
+	text-decoration: none;
+	color: #8f8f8f;
+}
+
+nav ul {
+	margin: 0;
+	padding: 0;
+	background-color: #f0f0f0;
+	border: 1px solid #e7e7e7;
+}
+
+li:first-child {
+    border: none;
+}
+
+table {
+	border-spacing: 10px;
+	margin: auto;
+}
+
+table tr, td {
+    border: 1px solid #cccccc;
+}
+
+table h3 {
+	text-align: center;
+	color: #79fdff;
+	padding: 10px 5px;
+	font-size: 10px;
+	margin: 0;
+}
+
+td a {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+a{
+	text-decoration: none;
+	color: #8f8f8f;
+}
+
+footer {
+    max-width: 960px;
+    margin: auto;
+    padding: 10px 0;
+    height: 90px;
+    float: right;
+}
+
+table tr,td {
+    width: 150px;
+    height: 150px;
+    text-align: center;
+}
+
+.test{
+    text-align: center;
+}
+
+
+
+
+
+
+

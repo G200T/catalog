@@ -1,0 +1,56 @@
+{% extends "index.html" %}
+
+{% block Cat %}
+    {% for category in cat_list %}
+        <li style="margin-left:{{ category.margin_left }};"><a href="/{{ category.main.get_absolute_url }}/">{{ category.main.name }}</a></li>
+    {% endfor %}
+{% endblock %}
+
+{% block Table %}
+    <table>
+    <tr>
+    {% for unit in Unit_list %}
+		<td>
+            <a href="/{{ unit.get_absolute_url }}/">
+			<h3>{{ unit.name }}</h3>
+            {% if unit.image|default_if_none:""  %}
+			    <img src="{{ unit.image.thumb_url  }}" alt="" height="100" width="128">
+            {% else %}
+                <img src="{{ unit.sub.image.thumb_url  }}" alt="" height="100" width="128">
+            {% endif %}
+			</a>
+		</td>
+        {% if forloop.counter|divisibleby:"4" %}
+            </tr>
+            <tr>
+        {% endif %}
+    {% endfor %}
+    </tr>
+    </table>
+{% endblock %}
+
+
+{% block Links %}
+    {% for link in link_list %}
+        <a href="/{{ link.get_absolute_url }}/">{{ link.name }}</a> /
+    {% endfor %}
+{% endblock %}
+
+
+{% block paginator %}
+<div class="pagination">
+    <span class="step-links">
+        {% if Unit_list.has_previous %}
+            <a href="?page={{ Unit_list.previous_page_number }}"><<<назад</a>
+        {% endif %}
+
+        <span class="current">
+            Страница {{ Unit_list.number }} из {{ Unit_list.paginator.num_pages }}.
+        </span>
+
+        {% if Unit_list.has_next %}
+            <a href="?page={{ Unit_list.next_page_number }}">вперед>>></a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

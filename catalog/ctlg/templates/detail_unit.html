@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+
+{% block Cat %}
+    {% for category in cat_list %}
+        <li style="margin-left:{{ category.margin_left }};"><a href="/{{ category.main.get_absolute_url }}/">{{ category.main.name }}</a></li>
+    {% endfor %}
+{% endblock %}
+
+{% block Table %}
+    <div class="test">
+    <h1>{{ prod.name }}</h1>
+    {% if prod.image|default_if_none:""  %}
+	    <img src="{{ prod.image.url }}" alt="" height="400" width="500">
+    {% else %}
+        <img src="{{ prod.sub.image.url  }}" alt="" height="400" width="500">
+    {% endif %}
+    </div>
+{% endblock %}
+
+
+{% block Links %}
+    {% for link in link_list %}
+        <a href="/{{ link.get_absolute_url }}/">{{ link.name }}</a> /
+    {% endfor %}
+{% endblock %}
