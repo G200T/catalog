@@ -18,7 +18,7 @@
             Адресная строка: /{% block Links %}{% endblock %}
         </h3>
 		<form name="search" action="/search/" method ="get">
-			<input type="text" name="q"><button type="submit">Поиск</button>
+			<input type="text" name="q", value="{% block searchline %}{% endblock %}"><button type="submit">Поиск</button>
 		</form>
 	</header>
 	

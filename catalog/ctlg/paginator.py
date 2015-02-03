@@ -12,3 +12,5 @@ def paginator(unit_list, request):
         unit_list = paginator.page(paginator.num_pages)
 
     return unit_list
+
+# search paginator

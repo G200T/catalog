@@ -12,6 +12,9 @@ class Unit(models.Model):
     image = ThumbnailImageField(upload_to='photos', null=True, blank=True)
     slug = models.SlugField(editable=False, null=True, unique=True)
 
+    class Meta:
+        ordering = ['name']
+
     def __unicode__(self):
         return u'{self.id}: {self.name}'.format(self=self)
 
