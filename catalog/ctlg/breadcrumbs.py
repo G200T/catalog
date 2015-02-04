@@ -2,39 +2,19 @@ from catalog.ctlg.models import Category, Unit
 from operator import attrgetter
 from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
+import re
 
 
-def get_cat3(cat1, cat2, cat3):
+def get_cat3(cat):
+    my_links = []
+    p = re.compile(r'/')
+    line = p.split(cat[0:-1])
+    line.reverse()
     try:
-        lvl1 = Category.objects.get(sub__isnull=True, slug=cat1)
-        lvl2 = Category.objects.get(sub=lvl1, slug=cat2)
-        lvl3 = Category.objects.get(sub=lvl2, slug=cat3)
+        for index in line:
+            my_links.append(Category.objects.get(slug=index))
     except ObjectDoesNotExist:
         raise Http404
-
-    my_links = [lvl1, lvl2, lvl3]
-
-    return my_links
-
-
-def get_cat2(cat1, cat2):
-    try:
-        lvl1 = Category.objects.get(sub__isnull=True, slug=cat1)
-        lvl2 = Category.objects.get(sub=lvl1, slug=cat2)
-    except ObjectDoesNotExist:
-        raise Http404
-
-    my_links = [lvl1, lvl2]
-
-    return my_links
-
-
-def get_cat1(cat1):
-    try:
-        lvl1 = Category.objects.get(sub__isnull=True, slug=cat1)
-    except ObjectDoesNotExist:
-        raise Http404
-    my_links = [lvl1]
 
     return my_links
 
@@ -47,6 +27,7 @@ def get_allunits(sub, my_list):
     my_list.sort(key=attrgetter('name'))
 
     return my_list
+
 
 def get_unit(unit):
     try:
