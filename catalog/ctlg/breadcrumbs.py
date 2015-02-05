@@ -2,17 +2,18 @@ from catalog.ctlg.models import Category, Unit
 from operator import attrgetter
 from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
-import re
 
 
+# need fix
 def get_cat3(cat):
     my_links = []
-    p = re.compile(r'/')
-    line = p.split(cat[0:-1])
-    line.reverse()
+    line = cat[0:-1].split('/')
     try:
-        for index in line:
-            my_links.append(Category.objects.get(slug=index))
+        for index, string in enumerate(line):
+            if index == 0:
+                my_links.append(Category.objects.get(sub__isnull=True, slug=string))
+            else:
+                my_links.append(Category.objects.get(slug=string))
     except ObjectDoesNotExist:
         raise Http404
 
