@@ -54,7 +54,7 @@ button {
 	height: 35px;
 }
 
-form[name="search"] {
+.searchline {
     float: right;
     padding: 20px 0;
     margin: 0;

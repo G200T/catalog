@@ -6,12 +6,12 @@ from catalog.ctlg.paginator import paginator
 
 
 def search(request):
-    if 'q' in request.GET:
-        term = request.GET['q']
-    search_list = Unit.objects.filter(name__icontains=term)
-    pag_list = paginator(search_list, request)
-    t = loader.get_template("category_list.html")
-    c = RequestContext(request, {'Unit_list': pag_list, 'term': term})
+    if request.method == 'POST' and request.is_ajax():
+        term = request.POST['line']
+        t = loader.get_template("ajaxtemplate.html")
+        search_list = Unit.objects.filter(name__icontains=term)
+        pag_list = paginator(search_list, request)
+        c = RequestContext(request, {'Unit_list':  pag_list})
 
     return HttpResponse(t.render(c))
 

@@ -5,7 +5,23 @@
 	<title>Catalog</title>
     {% load staticfiles %}
 	<link rel="stylesheet" href="{% static 'ctlg/styles.css' %}">
-    <script src="{% static 'ctlg/getscript' %}"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".btn").click(function(){
+                var str = $(".line").val();
+                $.ajax({
+                    "type": "POST",
+                    "dataType": "html",
+                    "url": "/search/",
+                    "data": {line: str, csrfmiddlewaretoken:'{{csrf_token}}' },
+                    "success": function(response){
+                        $(".table").html(response);
+                    },
+                });
+            });
+        });
+    </script>
 
 	<!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -14,13 +30,13 @@
 
 <body>
 	<header>
-		<h1>Каталог</h1>
+		<div class="test"><h1>Каталог</h1></div>
         <h3>
             Адресная строка: /{% block Links %}{% endblock %}
         </h3>
-		<form name="search" action="/search/" method ="get">
-			<input type="text" name="q", value="{% block searchline %}{% endblock %}"><button type="submit">Поиск</button>
-		</form>
+            <div class="searchline">
+			<input class="line" type="text"><button class="btn">Поиск</button>
+            </div>
 	</header>
 	
 	<aside>
@@ -34,13 +50,17 @@
 	</aside>
 	
 	<section>
+        <div class="table">
 	    {% block Table %}
         {% endblock %}
+        </div>
 	</section>
 	
 	<footer>
-        {% block paginator %}
-        {% endblock %}
+        <div class="pagination">
+            {% block paginator %}
+            {% endblock %}
+        </div>
 	</footer>
 
 </body>

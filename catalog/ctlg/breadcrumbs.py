@@ -13,7 +13,7 @@ def get_cat3(cat):
             if index == 0:
                 my_links.append(Category.objects.get(sub__isnull=True, slug=string))
             else:
-                my_links.append(Category.objects.get(slug=string))
+                my_links.append(Category.objects.get(sub=my_links[-1], slug=string))
     except ObjectDoesNotExist:
         raise Http404
 
