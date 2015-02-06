@@ -6,19 +6,11 @@
     {% load staticfiles %}
 	<link rel="stylesheet" href="{% static 'ctlg/styles.css' %}">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="{% static 'ctlg/getscript' %}"></script>
     <script>
-        $(document).ready(function(){
+         $(document).ready(function(){
             $(".btn").click(function(){
-                var str = $(".line").val();
-                $.ajax({
-                    "type": "POST",
-                    "dataType": "html",
-                    "url": "/search/",
-                    "data": {line: str, csrfmiddlewaretoken:'{{csrf_token}}' },
-                    "success": function(response){
-                        $(".table").html(response);
-                    },
-                });
+                my_func('{{csrf_token}}')
             });
         });
     </script>

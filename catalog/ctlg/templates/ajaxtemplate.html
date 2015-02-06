@@ -20,7 +20,7 @@
 </table>
 <span class="step-links">
         {% if Unit_list.has_previous %}
-            <a href="?page={{ Unit_list.previous_page_number }}"><<<назад</a>
+            <a href="?p={{ Unit_list.previous_page_number }}"><<<назад</a>
         {% endif %}
 
         <span class="current">
@@ -28,6 +28,6 @@
         </span>
 
         {% if Unit_list.has_next %}
-            <a href="?page={{ Unit_list.next_page_number }}">вперед>>></a>
+            <a href="?p={{ Unit_list.next_page_number }}">вперед>>></a>
         {% endif %}
 </span>

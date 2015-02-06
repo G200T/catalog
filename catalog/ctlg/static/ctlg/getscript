@@ -1,3 +1,12 @@
-function test() {
-    alert("test script")
+function my_func(csrf){
+    var str = $(".line").val();
+        $.ajax({
+                "type": "POST",
+                "dataType": "html",
+                "url": "/search/",
+                "data": {line: str, csrfmiddlewaretoken: csrf },
+                "success": function(response){
+                        $(".table").html(response);
+                },
+        });
 }
