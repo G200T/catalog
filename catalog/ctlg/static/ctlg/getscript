@@ -5,7 +5,7 @@ function my_func(csrf, page){
                 "dataType": "html",
                 "url": "/search/",
                 "data": {line: str, csrfmiddlewaretoken: csrf, page: page},
-                "success": function(response, test2){
+                "success": function(response){
                         $(".table").html(response);
                 },
         });

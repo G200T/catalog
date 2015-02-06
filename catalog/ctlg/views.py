@@ -2,7 +2,7 @@ from django.template import loader, RequestContext
 from django.http.response import HttpResponse
 from catalog.ctlg.models import Unit
 from catalog.ctlg.breadcrumbs import get_allunits, get_unit, get_cat3
-from catalog.ctlg.paginator import paginator
+from catalog.ctlg.paginator import paginator, paginatorajax
 
 
 def search(request):
@@ -11,7 +11,7 @@ def search(request):
         page = request.POST['page']
         t = loader.get_template("ajaxtemplate.html")
         search_list = Unit.objects.filter(name__icontains=term)
-        pag_list = paginator(search_list, page)
+        pag_list = paginatorajax(search_list, page)
         c = RequestContext(request, {'Unit_list':  pag_list})
 
     return HttpResponse(t.render(c))
