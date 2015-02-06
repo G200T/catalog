@@ -8,9 +8,10 @@ from catalog.ctlg.paginator import paginator
 def search(request):
     if request.method == 'POST' and request.is_ajax():
         term = request.POST['line']
+        page = request.POST['page']
         t = loader.get_template("ajaxtemplate.html")
         search_list = Unit.objects.filter(name__icontains=term)
-        pag_list = paginator(search_list, request)
+        pag_list = paginator(search_list, page)
         c = RequestContext(request, {'Unit_list':  pag_list})
 
     return HttpResponse(t.render(c))
