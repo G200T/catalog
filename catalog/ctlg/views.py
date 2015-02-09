@@ -16,9 +16,9 @@ def search(request):
         search_list = Unit.objects.filter(name__icontains=term)
         pag_list = paginatorajax(search_list, page)
         c = RequestContext(request, {'Unit_list':  pag_list})
-        test = {"one": t.render(c), "two": s.render(c)}
+        responce = {"one": t.render(c), "two": s.render(c)}
 
-    return HttpResponse(json.dumps(test))
+    return HttpResponse(json.dumps(responce))
 
 
 def base(request):

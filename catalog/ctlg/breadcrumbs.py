@@ -3,7 +3,6 @@ from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
 
 
-
 def get_cat(cat):
     my_links = []
     line = cat[0:-1].split('/')

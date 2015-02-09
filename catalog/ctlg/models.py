@@ -45,7 +45,6 @@ class Category(models.Model):
         else:
             return u'{old}/{self.slug}'.format(self=self, old=self.sub.get_absolute_url())
 
-
     @staticmethod
     def post_save(sender, **kwargs):
         my_category = kwargs['instance']
