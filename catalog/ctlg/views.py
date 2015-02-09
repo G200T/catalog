@@ -1,7 +1,8 @@
 from django.template import loader, RequestContext
 from django.http.response import HttpResponse
 from catalog.ctlg.models import Unit
-from catalog.ctlg.breadcrumbs import get_allunits, get_unit, get_cat3
+from catalog.ctlg.breadcrumbs import get_cat
+from catalog.ctlg.units import get_unit, get_allunits
 from catalog.ctlg.paginator import paginator, paginatorajax
 import json
 
@@ -31,7 +32,7 @@ def base(request):
 
 def my_cat(request, cat):
     my_list = []
-    my_links = get_cat3(cat)
+    my_links = get_cat(cat)
     unit_list = get_allunits(my_links[-1], my_list)
     pag_list = paginator(unit_list, request)
     t = loader.get_template("category_list.html")
@@ -41,7 +42,7 @@ def my_cat(request, cat):
 
 
 def units(request, unit, cat):
-    my_links = get_cat3(cat)
+    my_links = get_cat(cat)
     prod = get_unit(unit)
     t = loader.get_template("detail_unit.html")
     c = RequestContext(request, {'prod':  prod, 'link_list': my_links})
