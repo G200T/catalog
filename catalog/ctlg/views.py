@@ -3,6 +3,7 @@ from django.http.response import HttpResponse
 from catalog.ctlg.models import Unit
 from catalog.ctlg.breadcrumbs import get_allunits, get_unit, get_cat3
 from catalog.ctlg.paginator import paginator, paginatorajax
+import json
 
 
 def search(request):
@@ -10,11 +11,13 @@ def search(request):
         term = request.POST['line']
         page = request.POST['page']
         t = loader.get_template("ajaxtemplate.html")
+        s = loader.get_template("steppage.html")
         search_list = Unit.objects.filter(name__icontains=term)
         pag_list = paginatorajax(search_list, page)
         c = RequestContext(request, {'Unit_list':  pag_list})
+        test = {"one": t.render(c), "two": s.render(c)}
 
-    return HttpResponse(t.render(c))
+    return HttpResponse(json.dumps(test))
 
 
 def base(request):

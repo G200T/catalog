@@ -2,11 +2,12 @@ function my_func(csrf, page){
     var str = $(".line").val();
         $.ajax({
                 "type": "POST",
-                "dataType": "html",
+                "dataType": "json",
                 "url": "/search/",
                 "data": {line: str, csrfmiddlewaretoken: csrf, page: page},
                 "success": function(response){
-                        $(".table").html(response);
+                    $(".table").html(response.one);
+                    $(".pagination").html(response.two);
                 },
         });
 }
