@@ -4,7 +4,7 @@ function my_func(csrf, page){
                 "type": "POST",
                 "dataType": "json",
                 "url": "/search/",
-                "data": {line: str, csrfmiddlewaretoken: csrf, page: page},
+                "data": {csrfmiddlewaretoken: csrf, line: str, page: page},
                 "success": function(response){
                     $(".table").html(response.one);
                     $(".pagination").html(response.two);

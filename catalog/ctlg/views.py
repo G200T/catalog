@@ -44,6 +44,7 @@ def my_cat(request, cat):
 def units(request, unit, cat):
     my_links = get_cat(cat)
     prod = get_unit(unit)
+    my_links.append(prod)
     t = loader.get_template("detail_unit.html")
     c = RequestContext(request, {'prod':  prod, 'link_list': my_links})
     return HttpResponse(t.render(c))

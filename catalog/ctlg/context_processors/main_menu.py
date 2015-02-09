@@ -1,4 +1,4 @@
-from catalog.ctlg.menu_list import *
+from catalog.ctlg.menu_list import listgener, gener
 
 
 def menu(request):

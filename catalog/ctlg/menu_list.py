@@ -2,7 +2,7 @@ from catalog.ctlg.models import Category
 
 
 def gener():
-    i = -20
+    i = -1
     my_list = []
     for index in Category.objects.filter(sub__isnull=True):
         my_list.append(recurfunc(index, i))
@@ -11,7 +11,7 @@ def gener():
 
 def recurfunc(sub, i):
     child = []
-    i += 20
+    i += 1
     for index in sub.categories.all():
         child.append(recurfunc(index, i))
     return {'main': sub, 'children': child, 'margin_left': i}

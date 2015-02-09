@@ -1,8 +1,9 @@
 {% extends "index.html" %}
+{% load mathfilters %}
 
 {% block Cat %}
     {% for category in cat_list %}
-        <li style="margin-left:{{ category.margin_left }};"><a href="/{{ category.main.get_absolute_url }}/">{{ category.main.name }}</a></li>
+        <li style="margin-left:{{ category.margin_left|mul:20 }};"><a href="/{{ category.main.get_absolute_url }}/">{{ category.main.name }}</a></li>
     {% endfor %}
 {% endblock %}
 
